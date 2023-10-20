@@ -1,5 +1,6 @@
 package com.br.exerciciobackend.model;
 
+import com.br.exerciciobackend.dto.UserDto;
 import com.br.exerciciobackend.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,4 +32,14 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDto userDto) {
+        this.firstName = userDto.firstName();
+        this.lastName = userDto.lastName();
+        this.cpf = userDto.document();
+        this.balance = userDto.balance();
+        this.userType = userDto.userType();
+        this.email = userDto.email();
+        this.password = userDto.password();
+    }
 }

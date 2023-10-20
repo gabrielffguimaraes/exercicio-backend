@@ -1,5 +1,7 @@
 package com.br.exerciciobackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,5 +30,6 @@ public class Transaction {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime timestamp;
 }

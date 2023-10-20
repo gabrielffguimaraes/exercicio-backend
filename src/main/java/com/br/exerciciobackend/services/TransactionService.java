@@ -24,7 +24,7 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public void createTransaction(TransactionDto transactionDto) throws Exception {
+    public Transaction createTransaction(TransactionDto transactionDto) throws Exception {
         User sender = this.userService.findUserById(transactionDto.senderId());
         User receiver = this.userService.findUserById(transactionDto.receiverId());
 
@@ -34,18 +34,20 @@ public class TransactionService {
         if(!isAuthorized) {
             throw new Exception("Transação não autorizada");
         }
-        Transaction transaction = new Transaction();
-        transaction.setAmount(transactionDto.value());
-        transaction.setSender(sender);
-        transaction.setReceiver(receiver);
-        transaction.setTimestamp(LocalDateTime.now());
+        Transaction newTransaction = new Transaction();
+        newTransaction.setAmount(transactionDto.value());
+        newTransaction.setSender(sender);
+        newTransaction.setReceiver(receiver);
+        newTransaction.setTimestamp(LocalDateTime.now());
 
         sender.setBalance(sender.getBalance().subtract(transactionDto.value()));
         receiver.setBalance(receiver.getBalance().add(transactionDto.value()));
 
-        transactionRepository.save(transaction);
-        this.notificationService.notificateUser(sender,receiver,transactionDto.value());
+        transactionRepository.save(newTransaction);
+
+        this.notificationService.notificateUser(sender,"Transação enviada com sucesso !");
+        this.notificationService.notificateUser(receiver,"Transação recebida com sucesso !");
+
+        return newTransaction;
     }
-
-
 }
