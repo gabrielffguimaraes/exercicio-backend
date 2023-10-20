@@ -12,7 +12,6 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class RestControllerAdvicer {
-
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> treatDuplicate(DataIntegrityViolationException ex) {
         Map<String,String> map = new HashMap<>();
@@ -20,7 +19,6 @@ public class RestControllerAdvicer {
         map.put("status","400");
         return new ResponseEntity<Map>(map,HttpStatus.BAD_REQUEST);
     }
-
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> treat404(EntityNotFoundException ex) {
         Map<String,String> map = new HashMap<>();
