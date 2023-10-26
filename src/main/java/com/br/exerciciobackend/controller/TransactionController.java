@@ -1,17 +1,15 @@
 package com.br.exerciciobackend.controller;
 
 import com.br.exerciciobackend.dto.TransactionDto;
-import com.br.exerciciobackend.dto.UserDto;
 import com.br.exerciciobackend.model.Transaction;
-import com.br.exerciciobackend.model.User;
 import com.br.exerciciobackend.services.TransactionService;
-import com.br.exerciciobackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/transactions")
