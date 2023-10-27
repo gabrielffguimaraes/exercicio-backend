@@ -43,6 +43,9 @@ public class TransactionService {
         sender.setBalance(sender.getBalance().subtract(transactionDto.value()));
         receiver.setBalance(receiver.getBalance().add(transactionDto.value()));
 
+        userService.saveUser(sender);
+        userService.saveUser(receiver);
+
         transactionRepository.save(newTransaction);
 
         this.notificationService.notificateUser(sender,"Transação enviada com sucesso !");
